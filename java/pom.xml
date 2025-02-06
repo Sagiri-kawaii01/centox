@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>io.github.sagiri-kawaii01</groupId>
+    <artifactId>centox</artifactId>
+    <version>0.0.1-preview</version>
+    <name>pom</name>
+    <description>pom</description>
+    <url></url>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>centox-core</module>
+        <module>centox-x</module>
+        <module>spring-boot-starter-centox</module>
+        <module>centox-mp</module>
+        <module>centox-log</module>
+    </modules>
+
+    <properties>
+        <version>0.0.1-preview</version>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <validation.version>2.6.4</validation.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <fastjson2.version>2.0.50</fastjson2.version>
+        <mybatis.plus.version>3.5.2</mybatis.plus.version>
+        <pagehelper.version>1.4.7</pagehelper.version>
+        <jetbrains.annotations.version>RELEASE</jetbrains.annotations.version>
+    </properties>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>2.7.0</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>${jetbrains.annotations.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.5.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <publishingServerId>central</publishingServerId>
+                    <checksums>required</checksums>
+                    <deploymentName>release</deploymentName>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+</project>
