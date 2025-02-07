@@ -90,7 +90,7 @@ class _SqlWrapperDsl<T : Any>(
                             _WrapperDslType.OrEnd
                         ) + 1
                         if (existConditionTrue(queue.subList(i, queue.size))) {
-                            tmpWrapper = (tmpWrapper as KtQueryWrapper<T>).and {
+                            tmpWrapper = (tmpWrapper as KtQueryWrapper<T>).or {
                                 wrapperAnalyze(it, queue.subList(i + 1, j - 1))
                             }
                         }
@@ -121,7 +121,7 @@ class _SqlWrapperDsl<T : Any>(
                             _WrapperDslType.OrEnd
                         ) + 1
                         if (existConditionTrue(queue.subList(i, queue.size))) {
-                            tmpWrapper = (tmpWrapper as KtUpdateWrapper<T>).and {
+                            tmpWrapper = (tmpWrapper as KtUpdateWrapper<T>).or {
                                 wrapperAnalyze(it, queue.subList(i + 1, j - 1))
                             }
                         }

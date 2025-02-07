@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.sagiri_kawaii01</groupId>
     <artifactId>test</artifactId>
-    <version>0.0.1-preview</version>
+    <version>0.0.2-preview</version>
     <name>test</name>
     <description>test</description>
     <properties>
@@ -19,9 +19,13 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.github.sagiri_kawaii01</groupId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.sagiri-kawaii01</groupId>
             <artifactId>spring-boot-starter-centox</artifactId>
-            <version>0.0.1-preview</version>
+            <version>${version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

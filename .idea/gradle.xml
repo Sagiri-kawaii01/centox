@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/kotlin/centox-kt" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/kotlin/centox-kt" />
+            <option value="$PROJECT_DIR$/kotlin/centox-kt/centox-mp-kt" />
+            <option value="$PROJECT_DIR$/kotlin/centox-kt/centox-orika-kt" />
+            <option value="$PROJECT_DIR$/kotlin/centox-kt/spring-boot-starter-centox-kt" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>

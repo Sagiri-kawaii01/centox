@@ -1,0 +1,96 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "io.github.sagiri-kawaii01",
+    "module": "centox-mp-kt",
+    "version": "0.0.2-preview",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.8"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements-published",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.environment": "standard-jvm",
+        "org.gradle.jvm.version": 8,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.0.0"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "centox-mp-kt-0.0.2-preview.jar",
+          "url": "centox-mp-kt-0.0.2-preview.jar",
+          "size": 27770,
+          "sha512": "44d9cd864aedb563fd7fb1a0a3c415b8450570b8195a4691b073385bd73c3c0f490ef9c32362dba30efca91fc256be16bdac0d14b26ef5f6c220116f5ecfdc87",
+          "sha256": "e1df2903839ddc355074cabe84c2ed9a881f91da2843f96054c7e7dd3f8f8082",
+          "sha1": "096de4a7a41c17278c6c788b24ba46bd04488273",
+          "md5": "15d3a9d6529f53c8a1fc93308505b4ce"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements-published",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.environment": "standard-jvm",
+        "org.gradle.jvm.version": 8,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "dependencies": [
+        {
+          "group": "net.bytebuddy",
+          "module": "byte-buddy",
+          "version": {
+            "requires": "1.14.4"
+          }
+        },
+        {
+          "group": "net.bytebuddy",
+          "module": "byte-buddy-agent",
+          "version": {
+            "requires": "1.14.4"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.0.0"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "centox-mp-kt-0.0.2-preview.jar",
+          "url": "centox-mp-kt-0.0.2-preview.jar",
+          "size": 27770,
+          "sha512": "44d9cd864aedb563fd7fb1a0a3c415b8450570b8195a4691b073385bd73c3c0f490ef9c32362dba30efca91fc256be16bdac0d14b26ef5f6c220116f5ecfdc87",
+          "sha256": "e1df2903839ddc355074cabe84c2ed9a881f91da2843f96054c7e7dd3f8f8082",
+          "sha1": "096de4a7a41c17278c6c788b24ba46bd04488273",
+          "md5": "15d3a9d6529f53c8a1fc93308505b4ce"
+        }
+      ]
+    }
+  ]
+}

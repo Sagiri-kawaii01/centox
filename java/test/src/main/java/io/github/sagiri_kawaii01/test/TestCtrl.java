@@ -2,6 +2,7 @@ package io.github.sagiri_kawaii01.test;
 
 import io.github.sagiri_kawaii01.centox.core.annotation.BodyParam;
 import io.github.sagiri_kawaii01.centox.core.annotation.JsonApi;
+import io.github.sagiri_kawaii01.centox.log.annotation.Log;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ import java.time.LocalDateTime;
 @RestController
 @RequestMapping("/test")
 @JsonApi
+@Log(module = "测试")
 public class TestCtrl {
     @GetMapping("/")
     public LocalDateTime test() {

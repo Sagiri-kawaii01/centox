@@ -2,6 +2,7 @@ package io.github.sagiri_kawaii01.centox.starter
 
 import io.github.sagiri_kawaii01.centox.mp.DslConfig
 import org.springframework.boot.context.properties.ConfigurationProperties
+import org.springframework.boot.context.properties.NestedConfigurationProperty
 
 /**
  * @author <a href="https://github.com/Sagiri-kawaii01">lgz</a>
@@ -11,4 +12,16 @@ import org.springframework.boot.context.properties.ConfigurationProperties
 @ConfigurationProperties("centox")
 class CentoxKtProperties {
     var dslPackageName: String? = null
+
+    @NestedConfigurationProperty
+    var orika: CentoxOrikaProperties = CentoxOrikaProperties()
+}
+
+class CentoxOrikaProperties {
+    var useBuiltinConverters = true
+    var useAutoMapping = true
+    var mapNulls = false
+    var dumpStateOnException = false
+    var favorExtension = false
+    var captureFieldContext = false
 }

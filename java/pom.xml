@@ -6,22 +6,38 @@
 
     <groupId>io.github.sagiri-kawaii01</groupId>
     <artifactId>centox</artifactId>
-    <version>0.0.1-preview</version>
+    <version>0.0.2-preview</version>
     <name>pom</name>
     <description>pom</description>
-    <url></url>
+    <url>https://github.com/Sagiri-kawaii01/centox</url>
     <packaging>pom</packaging>
-
+    <licenses>
+        <license>
+            <name>The MIT License</name>
+            <url>https://opensource.org/license/mit</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <id>sagiri</id>
+            <name>sagiri-kawaii01</name>
+            <email>sagiri.wo@gmail.com</email>
+        </developer>
+    </developers>
+    <scm>
+        <url>https://github.com/Sagiri-kawaii01/centox</url>
+    </scm>
     <modules>
         <module>centox-core</module>
         <module>centox-x</module>
         <module>spring-boot-starter-centox</module>
         <module>centox-mp</module>
         <module>centox-log</module>
+        <module>test</module>
     </modules>
 
     <properties>
-        <version>0.0.1-preview</version>
+        <version>0.0.2-preview</version>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <validation.version>2.6.4</validation.version>
@@ -54,6 +70,27 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                    <charset>UTF-8</charset>
+                    <additionalJOptions>
+                        <additionalJOption>-Xdoclint:none</additionalJOption>
+                    </additionalJOptions>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.sonatype.central</groupId>
                 <artifactId>central-publishing-maven-plugin</artifactId>
                 <version>0.5.0</version>
@@ -70,6 +107,7 @@
                 <version>2.2.1</version>
                 <executions>
                     <execution>
+                        <phase>package</phase>
                         <id>attach-sources</id>
                         <goals>
                             <goal>jar-no-fork</goal>
@@ -77,7 +115,20 @@
                     </execution>
                 </executions>
             </plugin>
-
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.6</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 </project>

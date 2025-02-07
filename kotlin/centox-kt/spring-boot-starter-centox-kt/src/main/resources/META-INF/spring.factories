@@ -1,2 +1,4 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-io.github.sagiri_kawaii01.centox.starter.CentoxKtAutoConfiguration
+io.github.sagiri_kawaii01.centox.starter.CentoxKtAutoConfiguration,\
+io.github.sagiri_kawaii01.centox.starter.OrikaAutoConfigure,\
+io.github.sagiri_kawaii01.centox.starter.CentoxKtApplicationRunner

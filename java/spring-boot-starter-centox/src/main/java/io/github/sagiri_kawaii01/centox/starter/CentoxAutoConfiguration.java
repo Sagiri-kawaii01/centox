@@ -21,11 +21,13 @@ import io.github.sagiri_kawaii01.centox.x.adapter.*;
 import io.github.sagiri_kawaii01.centox.x.exception.ApiSuccess;
 import io.github.sagiri_kawaii01.centox.x.handler.*;
 import io.github.sagiri_kawaii01.centox.x.util.Assert;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
+import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -33,10 +35,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.Resource;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
+
 
 /**
  * @author <a href="https://github.com/Sagiri-kawaii01">lgz</a>
@@ -172,18 +171,7 @@ public class CentoxAutoConfiguration {
         return pageProperties;
     }
 
-    @Bean
-    @ConditionalOnMissingBean
-    public DateTimePatternAdapter dateTimePatternAdapter() {
-        Assert.notBlank(properties.getDatetime().getTimePattern(), "DateTime Pattern Configuration Error: timePattern can not be blank.");
-        Assert.notBlank(properties.getDatetime().getDatePattern(), "DateTime Pattern Configuration Error: datePattern can not be blank.");
-        Assert.notBlank(properties.getDatetime().getDateTimePattern(), "DateTime Pattern Configuration Error: dateTimePattern can not be blank.");
-        return new DefaultDateTimePatternAdapter(
-                properties.getDatetime().getTimePattern(),
-                properties.getDatetime().getDatePattern(),
-                properties.getDatetime().getDateTimePattern()
-        );
-    }
+
 
     @Bean
     @ConditionalOnMissingBean
@@ -203,38 +191,7 @@ public class CentoxAutoConfiguration {
         return new DateTimeConvertConfig();
     }
 
-    @Bean
-    public Jackson2ObjectMapperBuilderCustomizer jackson2ObjectMapperBuilderCustomizer(
-            DateTimePatternAdapter dateTimePatternAdapter
-    ) {
-        ZoneId zoneId;
-        if (!properties.getDatetime().getZoneId().isEmpty()) {
-            zoneId = ZoneId.of(properties.getDatetime().getZoneId());
-        } else {
-            zoneId = ZoneId.systemDefault();
-        }
-        return builder -> builder.serializerByType(
-                LocalDateTime.class, new LocalDateTimeSerializer(dateTimePatternAdapter.dateTimePattern().withZone(zoneId))
-        ).serializerByType(
-                LocalDate.class, new LocalDateSerializer(dateTimePatternAdapter.datePattern().withZone(zoneId))
-        ).serializerByType(
-                LocalTime.class, new LocalTimeSerializer(dateTimePatternAdapter.timePattern().withZone(zoneId))
-        );
-    }
 
-    @Bean
-    @ConditionalOnClass(name = "com.baomidou.mybatisplus.core.handlers.MetaObjectHandler")
-    @ConditionalOnMissingBean
-    public CentoxMybatisPlusConfig centoxMybatisPlusConfig() {
-        return new CentoxMybatisPlusConfig(properties.getMp());
-    }
-
-    @Bean
-    @ConditionalOnClass(name = "com.github.pagehelper.PageHelper")
-    @ConditionalOnMissingBean
-    public PageService pageService() {
-        return new DefaultPageService();
-    }
 
     @Bean
     @ConditionalOnMissingBean(BaseHttpMessageNotReadableExceptionHandler.class)

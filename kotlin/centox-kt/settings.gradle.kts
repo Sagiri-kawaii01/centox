@@ -4,3 +4,4 @@ plugins {
 rootProject.name = "centox-kt"
 include("centox-mp-kt")
 include("spring-boot-starter-centox-kt")
+include("centox-orika-kt")
