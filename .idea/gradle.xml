@@ -8,7 +8,10 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/kotlin/centox-kt" />
+            <option value="$PROJECT_DIR$/kotlin/centox-kt/centox-ksp-auth" />
+            <option value="$PROJECT_DIR$/kotlin/centox-kt/centox-ksp-openapi" />
             <option value="$PROJECT_DIR$/kotlin/centox-kt/centox-mp-kt" />
+            <option value="$PROJECT_DIR$/kotlin/centox-kt/centox-orika" />
             <option value="$PROJECT_DIR$/kotlin/centox-kt/centox-orika-kt" />
             <option value="$PROJECT_DIR$/kotlin/centox-kt/spring-boot-starter-centox-kt" />
           </set>

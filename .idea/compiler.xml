@@ -8,11 +8,24 @@
         <outputRelativeToContentRoot value="true" />
         <module name="centox-x" />
         <module name="spring-boot-starter-centox" />
-        <module name="test" />
+        <module name="centox-redis" />
         <module name="centox-log" />
         <module name="centox-core" />
         <module name="centox-mp" />
       </profile>
+      <profile name="Gradle Imported" enabled="true">
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-configuration-processor/2.7.0/d8b66c3d68ff21cb10bb908cd873c4a6ecd8880f/spring-boot-configuration-processor-2.7.0.jar" />
+        </processorPath>
+        <module name="centox-kt.spring-boot-starter-centox-kt.main" />
+      </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="test" target="1.8" />
+      <module name="test-kt" target="1.8" />
+      <module name="test-kt.main" target="1.8" />
+      <module name="test-kt.test" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

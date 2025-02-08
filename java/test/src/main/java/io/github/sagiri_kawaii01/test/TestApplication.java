@@ -1,4 +1,4 @@
-package io.github.sagiri_kawaii01.test;
+package io.github.sagirikawaii01.test;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

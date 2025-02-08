@@ -1,4 +1,5 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-io.github.sagiri_kawaii01.centox.starter.CentoxAutoConfiguration,\
-io.github.sagiri_kawaii01.centox.starter.CentoxMpAutoConfiguration,\
-io.github.sagiri_kawaii01.centox.starter.CentoxJacksonAutoConfiguration
+io.github.sagirikawaii01.centox.starter.CentoxAutoConfiguration,\
+io.github.sagirikawaii01.centox.starter.CentoxMpAutoConfiguration,\
+io.github.sagirikawaii01.centox.starter.CentoxJacksonAutoConfiguration,\
+io.github.sagirikawaii01.centox.starter.CentoxRedisConfigure

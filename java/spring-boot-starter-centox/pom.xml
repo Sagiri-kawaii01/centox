@@ -6,7 +6,7 @@
     <parent>
         <groupId>io.github.sagiri-kawaii01</groupId>
         <artifactId>centox</artifactId>
-        <version>0.0.2-preview</version>
+        <version>0.0.5-preview</version>
     </parent>
     <name>spring-boot-starter-centox</name>
     <description>spring-boot-starter-centox</description>
@@ -48,6 +48,11 @@
         <dependency>
             <groupId>io.github.sagiri-kawaii01</groupId>
             <artifactId>centox-mp</artifactId>
+            <version>${version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.sagiri-kawaii01</groupId>
+            <artifactId>centox-redis</artifactId>
             <version>${version}</version>
         </dependency>
         <dependency>
