@@ -1,6 +1,9 @@
 package io.github.sagirikawaii01.centox.starter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
 import io.github.sagirikawaii01.centox.core.configurer.*;
 import io.github.sagirikawaii01.centox.core.filter.InputStreamCacheFilter;
 import io.github.sagirikawaii01.centox.core.handler.*;
@@ -18,6 +21,7 @@ import io.github.sagirikawaii01.centox.x.util.Assert;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -25,6 +29,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.Resource;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 
 /**
@@ -182,6 +191,34 @@ public class CentoxAutoConfiguration {
     }
 
 
+    @Bean
+    public LocalDateTimeSerializer localDateTimeSerializer()  {
+        return new LocalDateTimeSerializer(DateTimeFormatter.ofPattern("HH:mm:ss").withZone(ZoneId.of("+8")));
+    }
+
+    @Bean
+    public LocalDateSerializer localDateSerializer()  {
+        return new LocalDateSerializer(DateTimeFormatter.ofPattern("yyyy-MM-dd").withZone(ZoneId.of("+8")));
+    }
+
+    @Bean
+    public LocalTimeSerializer localTimeSerializer()  {
+        return new LocalTimeSerializer(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").withZone(ZoneId.of("+8")));
+    }
+
+    @Bean
+    public Jackson2ObjectMapperBuilderCustomizer jackson2ObjectMapperBuilderCustomizer(
+            LocalDateTimeSerializer localDateTimeSerializer,
+            LocalDateSerializer localDateSerializer,
+            LocalTimeSerializer localTimeSerializer)  {
+        return builder -> builder.serializerByType(
+                LocalDateTime.class, localDateTimeSerializer
+        ).serializerByType(
+                LocalDate.class, localDateSerializer
+        ).serializerByType(
+                LocalTime.class, localTimeSerializer
+        );
+    }
 
     @Bean
     @ConditionalOnMissingBean(BaseHttpMessageNotReadableExceptionHandler.class)

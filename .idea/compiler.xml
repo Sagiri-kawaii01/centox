@@ -6,11 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="centox-x" />
         <module name="spring-boot-starter-centox" />
         <module name="centox-redis" />
-        <module name="centox-log" />
+        <module name="test" />
         <module name="centox-core" />
+        <module name="centox-x" />
+        <module name="centox-log" />
         <module name="centox-mp" />
       </profile>
       <profile name="Gradle Imported" enabled="true">
@@ -22,7 +23,9 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="test" target="1.8" />
+      <module name="centox-kt.centox-test-kt" target="1.8" />
+      <module name="centox-kt.centox-test-kt.main" target="1.8" />
+      <module name="centox-kt.centox-test-kt.test" target="1.8" />
       <module name="test-kt" target="1.8" />
       <module name="test-kt.main" target="1.8" />
       <module name="test-kt.test" target="1.8" />

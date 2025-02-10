@@ -8,10 +8,12 @@ import io.github.sagirikawaii01.centox.orika.convert.StringToListIntegerConverte
 import io.github.sagirikawaii01.centox.orika.convert.StringToListStringConverter
 import ma.glasnost.orika.MapperFacade
 import ma.glasnost.orika.MapperFactory
+import ma.glasnost.orika.OrikaSystemProperties
 import ma.glasnost.orika.impl.DefaultMapperFactory
 import ma.glasnost.orika.impl.DefaultMapperFactory.MapperFactoryBuilder
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.context.annotation.Bean
@@ -25,6 +27,7 @@ import javax.annotation.Resource
  * @date 2024/3/4 15:01
  * @since
  */
+@ConditionalOnClass(OrikaSystemProperties::class)
 @Configuration(proxyBeanMethods = false)
 open class OrikaAutoConfigure {
 

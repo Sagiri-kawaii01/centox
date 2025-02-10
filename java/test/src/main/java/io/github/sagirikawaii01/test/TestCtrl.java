@@ -3,12 +3,14 @@ package io.github.sagirikawaii01.test;
 import io.github.sagirikawaii01.centox.core.annotation.JsonApi;
 import io.github.sagirikawaii01.centox.core.annotation.Pageable;
 import io.github.sagirikawaii01.centox.log.annotation.Log;
+import io.github.sagirikawaii01.centox.redis.RedisUtil;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
@@ -24,6 +26,10 @@ import java.time.LocalDateTime;
 @Log(module = "测试")
 @Validated
 public class TestCtrl {
+
+    @Resource
+    private RedisUtil redisUtil;
+
     @GetMapping("/")
     public LocalDateTime test() {
         return LocalDateTime.now();

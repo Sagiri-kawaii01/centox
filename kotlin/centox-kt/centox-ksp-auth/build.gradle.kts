@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "io.github.sagiri-kawaii01"
-version = "0.0.5-preview"
+version = "0.1.3-preview"
 
 repositories {
     mavenCentral()
@@ -22,7 +22,7 @@ tasks.withType<Jar> {
 
 dependencies {
     implementation("com.google.devtools.ksp:symbol-processing-api:2.1.10-1.0.29")
-    compileOnly("org.springframework.boot:spring-boot-starter-web:2.7.0")
+    implementation("org.springframework.boot:spring-boot-starter-web:2.7.0")
     testImplementation(kotlin("test"))
 }
 
@@ -42,7 +42,7 @@ publishing {
         register("mavenJava", MavenPublication::class) {
             groupId = "io.github.sagiri-kawaii01"
             artifactId = "centox-ksp-auth"
-            version = "0.0.5-preview"
+            version = "0.1.3-preview"
             from(components["kotlin"])
 
             artifact(sourceJar)

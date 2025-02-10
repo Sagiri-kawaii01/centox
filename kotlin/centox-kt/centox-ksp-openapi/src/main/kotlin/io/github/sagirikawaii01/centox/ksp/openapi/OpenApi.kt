@@ -25,8 +25,21 @@ import kotlin.reflect.KClass
  * @since
  */
 
+data class Fields(
+    val code: String,
+    val message: String,
+    val data: String,
+    val pageData: String,
+    val currentPage: String,
+    val pageSize: String,
+    val pageCount: String,
+    val dataCount: String
+)
+
 lateinit var schemaGenerator: SchemaGenerator
-class OpenApi() {
+class OpenApi(
+   val fields: Fields
+) {
     var packageName: String = ""
     @field:JsonIgnore
     val enumMap: MutableMap<String, KClass<out EnumDoc>> = mutableMapOf()
@@ -254,7 +267,9 @@ class MediaType {
     }
 }
 
-class Response {
+class Response(
+    val fields: Fields
+) {
     var description: String = ""
     var headers: MutableMap<String, Header> = mutableMapOf()
     var content: MutableMap<String, MediaType> = mutableMapOf()
@@ -269,10 +284,10 @@ class Response {
                 } else {
                     it.schema!!["required"] as ArrayNode
                 }
-                required.add("status")
-                required.add("message")
-                (it.schema!!["properties"]["message"]!! as ObjectNode).remove("nullable")
-                (it.schema!!["properties"]["status"]!! as ObjectNode).remove("nullable")
+                required.add(fields.code)
+                required.add(fields.message)
+                (it.schema!!["properties"][fields.message]!! as ObjectNode).remove("nullable")
+                (it.schema!!["properties"][fields.code]!! as ObjectNode).remove("nullable")
                 (it.schema!!["properties"]!! as ObjectNode).remove("nullable")
             }
         }

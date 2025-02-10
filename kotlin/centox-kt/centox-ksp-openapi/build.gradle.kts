@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "io.github.sagiri-kawaii01"
-version = "0.0.5-preview"
+version = "0.1.3-preview"
 
 repositories {
     mavenCentral()
@@ -30,9 +30,9 @@ dependencies {
     api("com.github.victools:jsonschema-module-javax-validation:4.33.1")
     api("javax.validation:validation-api:2.0.1.Final")
     api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
-    api("io.github.sagiri-kawaii01:centox-core:0.0.5-preview")
-    api("io.github.sagiri-kawaii01:centox-log:0.0.5-preview")
-    api("io.github.sagiri-kawaii01:centox-mp:0.0.5-preview")
+    api("io.github.sagiri-kawaii01:centox-core:0.1.3-preview")
+    api("io.github.sagiri-kawaii01:centox-log:0.1.3-preview")
+    api("io.github.sagiri-kawaii01:centox-mp:0.1.3-preview")
     api("org.reflections:reflections:0.10.2")
     api(kotlin("reflect"))
     testImplementation(kotlin("test"))
@@ -54,7 +54,7 @@ publishing {
         register("mavenJava", MavenPublication::class) {
             groupId = "io.github.sagiri-kawaii01"
             artifactId = "centox-ksp-openapi"
-            version = "0.0.5-preview"
+            version = "0.1.3-preview"
             from(components["kotlin"])
 
             artifact(sourceJar)

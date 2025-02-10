@@ -1,0 +1,74 @@
+[versions]
+springBoot="2.7.17"
+springDependencyManagement="1.1.4"
+springPlugin="1.6.21"
+ksp="2.1.10-1.0.29"
+kotlin="2.0.0"
+ibdwKspVersion="1.2.18"
+ibdwSpringVersion="1.4"
+mysql="8.0.29"
+mybatisPlus="3.5.2"
+mybatisPlusGenerator="3.5.1"
+velocity="2.0"
+druid="1.2.20"
+jwt="3.8.3"
+kaptcha="2.3.2"
+jsonschema="4.33.1"
+coroutinesCore="1.7.3"
+coroutinesReactor="1.6.3"
+pagehelper="1.4.7"
+jasypt="3.0.4"
+minio="8.5.7"
+retrofit="2.4.1"
+easyExcel="3.3.4"
+taobao="1.0.0"
+okhttpSSE="4.12.0"
+dingtalk="2.0.0"
+centox="0.1.3-preview"
+
+[libraries]
+spring-boot-starter-web = { group = "org.springframework.boot", name = "spring-boot-starter-web" }
+spring-boot-starter-aop = { group = "org.springframework.boot", name = "spring-boot-starter-aop" }
+spring-boot-starter-test = { group = "org.springframework.boot", name = "spring-boot-starter-test" }
+spring-boot-starter-validation = { group = "org.springframework.boot", name = "spring-boot-starter-validation" }
+spring-boot-starter-cache = { group = "org.springframework.boot", name = "spring-boot-starter-cache" }
+spring-boot-starter-redis = { group = "org.springframework.boot", name = "spring-boot-starter-data-redis" }
+spring-boot-starter-jdbc = { group = "org.springframework.boot", name = "spring-boot-starter-data-jdbc" }
+spring-boot-starter-mail = { group = "org.springframework.boot", name = "spring-boot-starter-mail" }
+spring-boot-starter-ibdw = { group = "tech.ibdw", name = "spring-frame-spring-boot-starter", version.ref = "ibdwSpringVersion" }
+spring-boot-starter-ibdw-ksp = { group = "tech.ibdw", name = "spring-ksp", version.ref = "ibdwKspVersion" }
+kotlin-reflect = { group = "org.jetbrains.kotlin", name = "kotlin-reflect"}
+jackson-module-kotlin = { group = "com.fasterxml.jackson.module", name = "jackson-module-kotlin"}
+jdbc-mysql = { group = "mysql", name = "mysql-connector-java", version.ref = "mysql" }
+mybatis-plus = { group = "com.baomidou", name = "mybatis-plus-boot-starter", version.ref = "mybatisPlus" }
+mybatis-plus-dynamic-datasource = { group = "com.baomidou", name = "dynamic-datasource-spring-boot-starter", version.ref = "mybatisPlus" }
+mybatis-plus-generator = { group = "com.baomidou", name = "mybatis-plus-generator", version.ref = "mybatisPlusGenerator" }
+velocity-engine = { group = "org.apache.velocity", name = "velocity-engine-core", version.ref = "velocity" }
+druid = { group = "com.alibaba", name = "druid-spring-boot-starter", version.ref = "druid" }
+jwt = { group = "com.auth0", name = "java-jwt", version.ref = "jwt" }
+kaptcha = { group = "com.github.penggle", name = "kaptcha", version.ref = "kaptcha" }
+jsonschema = { group = "com.github.victools", name = "jsonschema-generator", version.ref = "jsonschema" }
+jsonschema-jackson = { group = "com.github.victools", name = "jsonschema-module-jackson", version.ref = "jsonschema" }
+jsonschema-validation = { group = "com.github.victools", name = "jsonschema-module-javax-validation", version.ref = "jsonschema" }
+kotlin-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutinesCore" }
+kotlin-coroutines-reactor = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-reactor", version.ref = "coroutinesReactor" }
+pagehelper = { group = "com.github.pagehelper", name = "pagehelper-spring-boot-starter", version.ref = "pagehelper" }
+jasypt = { group = "com.github.ulisesbocchio", name = "jasypt-spring-boot-starter", version.ref = "jasypt" }
+minio = { group = "io.minio", name = "minio", version.ref = "minio" }
+retrofit = { group = "com.github.lianjiatech", name = "retrofit-spring-boot-starter", version.ref = "retrofit" }
+easyexcel = { group = "com.alibaba", name = "easyexcel", version.ref = "easyExcel" }
+taobao = { group = "com.taobao", name = "taobao-sdk-java-auto", version.ref = "taobao"}
+dingtalk = { group = "com.aliyun", name = "alibaba-dingtalk-service-sdk", version.ref = "dingtalk" }
+okhttp-sse = { group = "com.squareup.okhttp3", name = "okhttp-sse", version.ref = "okhttpSSE" }
+centox = { group = "io.github.sagiri-kawaii01", name = "spring-boot-starter-centox", version = "0.1.3-preview" }
+centox-kt = { group = "io.github.sagiri-kawaii01", name = "centox-starter-kt", version = "0.1.3-preview" }
+centox-mp-kt = { group = "io.github.sagiri-kawaii01", name = "centox-mp-kt", version.ref = "centox" }
+centox-ksp-auth = { group = "io.github.sagiri-kawaii01", name = "centox-ksp-auth", version.ref = "centox" }
+centox-ksp-openapi = { group = "io.github.sagiri-kawaii01", name = "centox-ksp-openapi", version.ref = "centox" }
+
+[plugins]
+spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "springDependencyManagement" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "springPlugin" }
+kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+spring-boot = { id = "org.springframework.boot", version.ref = "springBoot" }

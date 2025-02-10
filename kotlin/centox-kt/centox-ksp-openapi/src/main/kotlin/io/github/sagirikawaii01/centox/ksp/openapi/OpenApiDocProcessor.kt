@@ -6,7 +6,6 @@ import com.google.devtools.ksp.processing.*
 import com.google.devtools.ksp.symbol.*
 import io.github.sagirikawaii01.centox.core.annotation.BodyParam
 import io.github.sagirikawaii01.centox.core.annotation.Pageable
-import io.github.sagirikawaii01.centox.ksp.openapi.ApiParams
 import io.github.sagirikawaii01.centox.log.annotation.ApiName
 import io.github.sagirikawaii01.centox.log.annotation.Log
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController
 import org.yaml.snakeyaml.Yaml
 import java.io.File
 import java.io.OutputStream
+import java.lang.reflect.Field
 import java.nio.file.Files
 import java.nio.file.Paths
 
@@ -32,10 +32,19 @@ class OpenApiDocProcessor(private val environment: SymbolProcessorEnvironment): 
     private var log: KSPLogger = environment.logger
     private var codeGenerator = environment.codeGenerator
     private val config = readConfig()
-    private val openApi = OpenApi()
+    private lateinit var openApi: OpenApi
     private val tagNameSet = mutableSetOf<String>()
     private var packageName: String? = environment.options["packageName"]
-    private var currentPage: String? = environment.options["currentPage"]
+    private var currentPage: String = environment.options["currentPage"] ?: "currentPage"
+    private var pageSize: String = environment.options["pageSize"] ?: "pageSize"
+    private var dataCount: String = environment.options["dataCount"] ?: "dataCount"
+    private var pageCount: String = environment.options["pageCount"] ?: "pageCount"
+    private var timestamp: String = environment.options["timestamp"] ?: "timestamp"
+    private var pageData: String = environment.options["pageData"] ?: "data"
+    private var data: String = environment.options["data"] ?: "data"
+    private var code: String = environment.options["code"] ?: "code"
+    private var message: String = environment.options["message"] ?: "message"
+    private var fields: Fields
     private lateinit var resolver: Resolver
     private var translate: Map<String, String> = emptyMap()
     private var i = 0
@@ -43,22 +52,18 @@ class OpenApiDocProcessor(private val environment: SymbolProcessorEnvironment): 
     private val returnField: MutableMap<String, ReturnType> = mutableMapOf<String, ReturnType>().apply {
         this["io.github.sagirikawaii01.centox.ksp.openapi.PageResult"] = ReturnType(
             fields = mutableMapOf(
-                "data" to true,
-                "currentPage" to true,
-                "pageSize" to true,
-                "dataCount" to true,
-                "pageCount" to true,
-                "timestamp" to true
+                pageData to true,
+                currentPage to true,
+                pageSize to true,
+                dataCount to true,
+                pageCount to true,
+                timestamp to true
             )
         )
     }
 
     init {
-        openApi.info = Info().apply {
-            title = config.projectName
-            version = config.version
-        }
-        openApi.packageName = packageName!!
+
         // 获取翻译文件
         val paths = environment.options["translate.yml.paths"]
         if (!paths.isNullOrBlank()) {
@@ -74,6 +79,44 @@ class OpenApiDocProcessor(private val environment: SymbolProcessorEnvironment): 
                 }
             }
         }
+
+        fields = Fields(
+            code = code,
+            message = message,
+            data = data,
+            currentPage = currentPage,
+            pageData =  pageData,
+            pageCount = pageCount,
+            pageSize = pageSize,
+            dataCount = dataCount
+        )
+
+        openApi = OpenApi(fields)
+        openApi.info = Info().apply {
+            title = config.projectName
+            version = config.version
+        }
+        openApi.packageName = packageName!!
+        val generatedClass = codeGenerator.createNewFile(
+            dependencies = Dependencies.ALL_FILES,
+            packageName = "io.github.sagirikawaii01.centox.ksp.openapi",
+            fileName = "PageResult"
+        )
+
+        // 写入class
+        generatedClass.appendText("""
+            package io.github.sagirikawaii01.centox.ksp.openapi
+            
+            data class PageResult<T>(
+                val ${pageData}: T,
+                val ${currentPage}: Int,
+                val ${pageSize}: Int,
+                val ${pageCount}: Int,
+                val ${dataCount}: Int,
+                val ${timestamp}: Long
+            )
+        """.trimIndent())
+        generatedClass.close()
     }
 
     override fun process(resolver: Resolver): List<KSAnnotated> {
@@ -134,8 +177,6 @@ class OpenApiDocProcessor(private val environment: SymbolProcessorEnvironment): 
                             packageName = classDeclaration.packageName.asString()
                         }
 
-
-
                         // 写入class
                         generatedClass.appendText(createClassByParameters(declaredFunction.parameters, i++, "${classDeclaration.packageName.asString()}.doc", pageType))
                         generatedClass.close()
@@ -186,7 +227,7 @@ class OpenApiDocProcessor(private val environment: SymbolProcessorEnvironment): 
 
                     if (!declaredFunction.returnType!!.resolve().isMarkedNullable) {
                         returnField.putIfAbsent(returnClassName, ReturnType())
-                        returnField[returnClassName]!!.fields["result"] = true
+                        returnField[returnClassName]!!.fields[fields.data] = true
                     }
 
                     val fullName = declaredFunction.returnType!!.qualifiedName()
@@ -223,7 +264,7 @@ class OpenApiDocProcessor(private val environment: SymbolProcessorEnvironment): 
 
                     if (pageType in arrayOf(0, 2)) {
                         // 返回值文档
-                        operation.responses["200"] = Response().apply {
+                        operation.responses["200"] = Response(fields).apply {
                             this.description = "成功"
                             this.content[org.springframework.http.MediaType.APPLICATION_JSON_VALUE] = MediaType().apply {
                                 this.className = returnClassName
@@ -232,7 +273,7 @@ class OpenApiDocProcessor(private val environment: SymbolProcessorEnvironment): 
                     }
 
                     if (pageType == 1) {
-                        operation.responses["200"] = Response().apply {
+                        operation.responses["200"] = Response(fields).apply {
                             this.description = "分页"
                             this.content[org.springframework.http.MediaType.APPLICATION_JSON_VALUE] = MediaType().apply {
                                 this.className = returnClassName
@@ -241,7 +282,7 @@ class OpenApiDocProcessor(private val environment: SymbolProcessorEnvironment): 
                     }
 
                     if (pageType == 2) {
-                        operation.responses["x-200:分页"] = Response().apply {
+                        operation.responses["x-200:分页"] = Response(fields).apply {
                             this.description = "分页"
                             this.content[org.springframework.http.MediaType.APPLICATION_JSON_VALUE] = MediaType().apply {
                                 this.className = returnPageClassName
@@ -255,7 +296,7 @@ class OpenApiDocProcessor(private val environment: SymbolProcessorEnvironment): 
                         "PUT" -> openApi.paths[realPath]!!.put = operation
                         "DELETE" -> openApi.paths[realPath]!!.delete = operation
                     }
-                    operation.parameters = getParams(declaredFunction)
+                    operation.parameters = getParams(declaredFunction, fields)
 
                     // 接口注释
                     val desc = declaredFunction.getAnnotationsByType(Description::class).toList()
@@ -394,9 +435,9 @@ class OpenApiDocProcessor(private val environment: SymbolProcessorEnvironment): 
             nextLine()
             append("""
                 |data class ApiReturn$index (
-                |   val status: Long,
-                |   val message: String,
-                |   val result: ${if (page) {"PageResult<"} else {""}}${getGenericsType(returnType)}${if (page) {">"} else {""}}
+                |   val ${fields.code}: Int,
+                |   val ${fields.message}: String,
+                |   val ${fields.data}: ${if (page) {"PageResult<"} else {""}}${getGenericsType(returnType)}${if (page) {">"} else {""}}
                 |)
             """.trimMargin())
         }.toString()
@@ -445,14 +486,14 @@ class OpenApiDocProcessor(private val environment: SymbolProcessorEnvironment): 
 
             if (pageType == 1) {
                 line("    @field:NotNull")
-                line("    val currentPage: Int?,")
+                line("    val ${currentPage}: Int?,")
                 line("    @field:NotNull")
-                line("    val pageSize: Int?,")
+                line("    val ${pageSize}: Int?,")
             }
 
             if (pageType == 2) {
-                line("    val currentPage: Int?,")
-                line("    val pageSize: Int?,")
+                line("    val ${currentPage}: Int?,")
+                line("    val ${pageSize}: Int?,")
             }
 
             // end
@@ -535,7 +576,7 @@ private fun isNullable(param: KSValueParameter): Boolean {
 }
 
 @OptIn(KspExperimental::class)
-private fun getParams(function: KSFunctionDeclaration): MutableList<Parameter> {
+private fun getParams(function: KSFunctionDeclaration, fields: Fields): MutableList<Parameter> {
     val ret = mutableListOf<Parameter>()
     val pageable = function.getAnnotationsByType(Pageable::class).toList()
     var pageType = 0
@@ -561,14 +602,14 @@ private fun getParams(function: KSFunctionDeclaration): MutableList<Parameter> {
     if (function.hasMethod("GET")) {
         if (pageType == 1) {
             ret.add(Parameter().apply {
-                this.name = "currentPage"
+                this.name = fields.currentPage
                 this.required = true
                 this.`in` = "query"
                 this.type = "integer"
                 this.schema = mapOf("type" to "integer")
             })
             ret.add(Parameter().apply {
-                this.name = "pageSize"
+                this.name = fields.pageSize
                 this.required = true
                 this.`in` = "query"
                 this.type = "integer"
@@ -578,14 +619,14 @@ private fun getParams(function: KSFunctionDeclaration): MutableList<Parameter> {
 
         if (pageType == 2) {
             ret.add(Parameter().apply {
-                this.name = "currentPage"
+                this.name = fields.currentPage
                 this.required = false
                 this.`in` = "query"
                 this.type = "integer"
                 this.schema = mapOf("type" to "integer")
             })
             ret.add(Parameter().apply {
-                this.name = "pageSize"
+                this.name = fields.pageSize
                 this.required = false
                 this.`in` = "query"
                 this.type = "integer"

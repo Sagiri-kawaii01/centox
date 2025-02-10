@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.github.sagirikawaii01.centox.redis.RedisUtil;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -22,18 +23,14 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
  * @date 2025/2/8 17:34
  * @since
  */
-@Configuration
+@AutoConfiguration
 @ConditionalOnClass(RedisTemplate.class)
 public class CentoxRedisConfigure {
-    @Bean
-    public RedisUtil redisUtil(RedisTemplate<String, Object> redisTemplate) {
-        return new RedisUtil(redisTemplate);
-    }
 
-    @Bean
-    @ConditionalOnBean(RedisConnectionFactory.class)
-    @ConditionalOnMissingBean
-    public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+
+    @Bean("centoxRedisTemplate")
+    @ConditionalOnMissingBean(name = "centoxRedisTemplate")
+    public RedisTemplate<String, Object> centoxRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(redisConnectionFactory);
         // 用Jackson2JsonRedisSerializer来序列化和反序列化redis的value值
@@ -47,6 +44,13 @@ public class CentoxRedisConfigure {
         redisTemplate.setHashValueSerializer(serializer());
         redisTemplate.afterPropertiesSet();
         return redisTemplate;
+    }
+
+    @Bean
+    @ConditionalOnMissingBean(name = "redisUtil")
+    @ConditionalOnBean(name = "centoxRedisTemplate")
+    public RedisUtil redisUtil(RedisTemplate<String, Object> centoxRedisTemplate) {
+        return new RedisUtil(centoxRedisTemplate);
     }
 
     private Jackson2JsonRedisSerializer<Object> serializer() {
