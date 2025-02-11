@@ -35,9 +35,10 @@ jobs:
         run: |
           echo "allow-loopback-pinentry" > ~/.gnupg/gpg-agent.conf
           gpg-connect-agent reloadagent /bye
-          mvn deploy -Dgpg.passphrase=$GPG_PASSPHRASE
+          mvn deploy
         working-directory: ./java
         env:
           MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
-          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+          MAVEN_GPG_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
