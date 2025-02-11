@@ -14,8 +14,8 @@ jobs:
     permissions:
       contents: read
       packages: write
-
-    - name: Import GPG key
+    steps:
+      - name: Import GPG key
         run: |
           echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --batch --import
           gpg --list-secret-keys
