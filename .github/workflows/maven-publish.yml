@@ -31,6 +31,8 @@ jobs:
         run: |
           echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --batch --import
           gpg --list-secret-keys
+          echo "allow-loopback-pinentry" > ~/.gnupg/gpg-agent.conf
+          gpg-connect-agent reloadagent /bye
       - name: Publish package
         run: mvn deploy -Dgpg.passphrase=$GPG_PASSPHRASE
         working-directory: ./java
