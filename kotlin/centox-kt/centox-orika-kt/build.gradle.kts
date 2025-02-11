@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "io.github.sagiri-kawaii01"
-version = "0.1.3-preview"
+version = "1.0.0"
 
 repositories {
     mavenCentral()
@@ -43,7 +43,7 @@ publishing {
         register("mavenJava", MavenPublication::class) {
             groupId = "io.github.sagiri-kawaii01"
             artifactId = "centox-orika-kt"
-            version = "0.1.3-preview"
+            version = "1.0.0"
             from(components["kotlin"])
 
             artifact(sourceJar)

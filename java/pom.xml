@@ -6,7 +6,7 @@
 
     <groupId>io.github.sagiri-kawaii01</groupId>
     <artifactId>centox</artifactId>
-    <version>0.1.3-preview</version>
+    <version>1.0.0</version>
     <name>pom</name>
     <description>pom</description>
     <url>https://github.com/Sagiri-kawaii01/centox</url>
@@ -38,7 +38,7 @@
     </modules>
 
     <properties>
-        <version>0.1.3-preview</version>
+        <version>1.0.0</version>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <validation.version>2.6.4</validation.version>

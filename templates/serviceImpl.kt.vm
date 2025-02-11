@@ -1,0 +1,20 @@
+package ${package.ServiceImpl}
+
+import ${package.Entity}.${entity}
+import ${package.Mapper}.${table.mapperName}
+import ${package.Service}.${table.serviceName}
+import ${superServiceImplClassPackage}
+import org.springframework.stereotype.Service
+import io.github.sagirikawaii01.centox.mp.BaseService
+
+/**
+ * <p>
+ * $!{table.comment} 服务实现类
+ * </p>
+ *
+ * @author ${author}
+ */
+@Service
+open class ${table.serviceImplName} : BaseService<${table.mapperName}, ${entity}>(), ${table.serviceName} {
+
+}

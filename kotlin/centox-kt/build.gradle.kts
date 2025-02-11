@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "io.github.sagiri-kawaii01"
-version = "0.1.3-preview"
+version = "1.0.0"
 
 repositories {
     mavenCentral()

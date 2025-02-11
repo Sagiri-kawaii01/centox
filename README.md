@@ -10,12 +10,16 @@
     <a target="_blank">
         <img src="https://img.shields.io/github/license/Sagiri-kawaii01/centox">
     </a>&nbsp;
-    <a target="_blank">
+    <a target="https://mvnrepository.com/artifact/io.github.sagiri-kawaii01/spring-boot-starter-centox">
         <img src="https://img.shields.io/maven-central/v/io.github.sagiri-kawaii01/centox">
     </a>&nbsp;
     <a target="_blank">
         <img src="https://img.shields.io/badge/Spring%20Boot-2.7.0+-green">
     </a>
+</div>
+
+<div align="center">
+欢迎 issue 及 PR
 </div>
 
 ---

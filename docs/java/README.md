@@ -13,7 +13,7 @@
 ```
 
 ### Gradle kts
-```gradle
+```kotlin
 dependencies {
     implementation("io.github.sagiri-kawaii01:spring-boot-starter-centox:1.0.0")
 }
@@ -22,7 +22,7 @@ dependencies {
 ## Features
 
 1. [响应体自动封装、自动分页](../response_body.md)
-2. 日志功能
+2. [日志功能](../log.md)
 3. Http、Valid 异常处理
 4. Redis
 5. Mybatis Plus
