@@ -4,6 +4,7 @@
 name: Publish To Maven Central
 
 on:
+  workflow_dispatch:
   release:
     types: [created]
 
